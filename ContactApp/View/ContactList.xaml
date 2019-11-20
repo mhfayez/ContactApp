@@ -1,0 +1,79 @@
+﻿<Page
+    x:Class="ContactApp.View.ContactList"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:ContactApp.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:ContactApp.ViewModel"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <viewModel:ContactViewModel />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="36" />
+            <Setter Property="Width" Value="300" />
+            <Setter Property="Margin" Value="20,20,20,20" />
+        </Style>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="Margin" Value="10,10,10,10" />
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+
+        <StackPanel Orientation="Horizontal">
+            <!--  List Part  -->
+            <StackPanel>
+                <ListView ItemsSource="{Binding ContactsCollection}" SelectedItem="{Binding SelectedContact, Mode=TwoWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image
+                                    Width="80"
+                                    Height="80"
+                                    Source="{Binding ImageSource}" />
+                                <TextBlock
+                                    Margin="10,10,10,10"
+                                    VerticalAlignment="Center"
+                                    FontSize="18"
+                                    Text="{Binding Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button
+                    Command="{Binding DeletionCommand}"
+                    Content="Delete"
+                    Style="{StaticResource ButtonStyle}" />
+            </StackPanel>
+
+            <!--  Details Part  -->
+            <StackPanel>
+                <StackPanel
+                    Margin="10,10,10,10"
+                    BorderBrush="DarkGray"
+                    BorderThickness="3,3,3,3"
+                    Orientation="Horizontal">
+                    <Image
+                        Width="200"
+                        Height="200"
+                        Margin="10,10,10,10"
+                        VerticalAlignment="Top"
+                        Source="{Binding SelectedContact.ImageSource}" />
+                    <StackPanel Margin="20,20,20,20">
+                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding SelectedContact.Name}" />
+                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding SelectedContact.Phone}" />
+                        <TextBlock Style="{StaticResource TextBlockStyle}" Text="{Binding SelectedContact.Country}" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Page>
