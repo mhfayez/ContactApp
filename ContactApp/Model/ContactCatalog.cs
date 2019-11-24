@@ -19,8 +19,7 @@ namespace ContactApp.Model
         {
             _contacts.Add(c);
             string json = JsonConvert.SerializeObject(_contacts);
-            StorageFile file = await _storageFolder.CreateFileAsync(FileName, CreationCollisionOption.OpenIfExists);
-            await FileIO.WriteTextAsync(file, json);
+            await FileIO.WriteTextAsync(await OpenOrCreateFile(), json);
         }
 
         public async Task LoadDomainObjects()
