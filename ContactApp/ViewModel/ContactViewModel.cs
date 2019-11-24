@@ -6,8 +6,11 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using ContactApp.Annotations;
 using ContactApp.Model;
+using UWP_MVVM_Weather.Common;
+
 //using Contact = Windows.ApplicationModel.Contacts.Contact;
 
 namespace ContactApp.ViewModel
@@ -15,20 +18,34 @@ namespace ContactApp.ViewModel
     public class ContactViewModel : INotifyPropertyChanged
     {
         private Contact _domainObject;
-        private ContactCatalog _contactCatalog;
+        private readonly ContactCatalog _contactCatalog;
         private Contact _selectedContact;
-        private DeleteCommand _deletionCommand;
-
-
+        private readonly DeleteCommand _deletionCommand;
+        private string _imageSource;
+        
         public ContactViewModel()
         {
             _contactCatalog = new ContactCatalog();
-            DomainObject();
+            GetDomainObjects();
             _selectedContact = null;
+            AddContactCommand = new RelayCommand(AddContact);
             _deletionCommand = new DeleteCommand(_contactCatalog, this);
         }
 
-        public void DomainObject()
+        public ICommand AddContactCommand { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public string Country { get; set; }
+
+        public string ImageSource
+        {
+            get => _imageSource;
+            set => _imageSource = "..\\Assets\\" + value;
+        }
+
+        
+
+        public void GetDomainObjects()
         {
             foreach (var c in _contactCatalog.Contacts)
             {
@@ -38,11 +55,7 @@ namespace ContactApp.ViewModel
 
         public Contact SelectedContact
         {
-            get
-            {
-                return _selectedContact;
-            }
-
+            get => _selectedContact;
             set
             {
                 _selectedContact = value;
@@ -51,14 +64,13 @@ namespace ContactApp.ViewModel
             }
         }
 
-        public DeleteCommand DeletionCommand
-        {
-            get { return _deletionCommand; }
-        }
+        public DeleteCommand DeletionCommand => _deletionCommand;
 
-        public ObservableCollection<Contact> ContactsCollection
+        public ObservableCollection<Contact> ContactsCollection => _contactCatalog.Contacts;
+       
+        public void AddContact()
         {
-            get { return _contactCatalog.Contacts; }
+            _contactCatalog.AddContact(new Contact(Name, Phone, Country, ImageSource));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

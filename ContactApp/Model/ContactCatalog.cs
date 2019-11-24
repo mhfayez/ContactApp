@@ -1,39 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Dynamic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
+using Windows.Storage;
+using Newtonsoft.Json;
+//C:\Users\Homayoon\AppData\Local\Packages\ae82ddaf-6f69-4ff5-9c1b-fddb15b4a9b8_wys1rpvef35kg\LocalState
 namespace ContactApp.Model
 {
     public class ContactCatalog
     {
-        private Contact _selectedContact;
+        private const string FileName = "contactsList.txt";
+        readonly StorageFolder _storageFolder = ApplicationData.Current.LocalFolder;
+        private static ObservableCollection<Contact> _contacts = new ObservableCollection<Contact>();
 
-        private ObservableCollection<Contact> _contacts = new ObservableCollection<Contact>()
-        {
-            new Contact("Ann", "12345678", "Canada", "..\\Assets\\ann.jpg"),
-            new Contact("Benny", "23456789", "England", "..\\Assets\\benny.jpg"),
-            new Contact("Carol", "34567890", "USA", "..\\Assets\\carol.jpg")
-        };
+        public ObservableCollection<Contact> Contacts => _contacts;
 
-
-        public ObservableCollection<Contact> Contacts
-        {
-            get { return _contacts; }
-        }
-
-        public void Create(Contact c)
+        public async void AddContact(Contact c)
         {
             _contacts.Add(c);
+            string json = JsonConvert.SerializeObject(_contacts);
+            StorageFile file = await _storageFolder.CreateFileAsync(FileName, CreationCollisionOption.OpenIfExists);
+            await FileIO.WriteTextAsync(file, json);
         }
 
-        public void Delete(string phone)
+        public async Task LoadDomainObjects()
         {
-           var contact =  _contacts.FirstOrDefault(c => c.Phone == phone);
-           _contacts.Remove(contact);
+            string contacts = await FileIO.ReadTextAsync(await OpenOrCreateFile());
+            _contacts = JsonConvert.DeserializeObject<ObservableCollection<Contact>>(contacts);
+        }
+
+        public async void Delete(string phone)
+        {
+            var contact = _contacts.FirstOrDefault(c => c.Phone == phone);
+            _contacts.Remove(contact);
+            string json = JsonConvert.SerializeObject(_contacts);
+            await FileIO.WriteTextAsync(await OpenOrCreateFile(), json);
+        }
+
+        public async Task<StorageFile> OpenOrCreateFile()
+        {
+            return await _storageFolder.CreateFileAsync(FileName, CreationCollisionOption.OpenIfExists);
         }
 
     }

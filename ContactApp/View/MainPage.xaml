@@ -58,6 +58,7 @@
                         </Button>
                         <TextBlock VerticalAlignment="Center" Text="Add Contact" />
                     </StackPanel>
+                    <!--
                     <StackPanel Orientation="Horizontal">
                         <Button
                             Name="ContactEdit"
@@ -67,6 +68,7 @@
                         </Button>
                         <TextBlock VerticalAlignment="Center" Text="Edit" />
                     </StackPanel>
+
                     <StackPanel Orientation="Horizontal">
                         <Button
                             Name="ContactDelete"
@@ -76,10 +78,11 @@
                         </Button>
                         <TextBlock VerticalAlignment="Center" Text="Delete" />
                     </StackPanel>
+                    -->
                     <!--  this is an example of wrapping the text and symbolIcon inside Button, so the text becomes clickable  -->
                     <StackPanel>
                         <Button
-                            Name="Search"
+                            Name="ContactSearch"
                             Background="Transparent"
                             Click="ClickHandler">
                             <StackPanel Orientation="Horizontal">
