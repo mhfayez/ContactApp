@@ -59,7 +59,7 @@ namespace ContactApp
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
 
-               await new ContactCatalog().LoadDomainObjects();
+               await new ContactCatalog().LoadDomainObjectsAsync();
             }
 
             if (e.PrelaunchActivated == false)

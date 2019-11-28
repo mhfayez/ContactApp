@@ -24,7 +24,7 @@ namespace ContactApp.ViewModel
         public void Execute(object parameter)
         {
             // Delete from catalog
-            _catalog.Delete(_viewModel.SelectedContact.Phone);
+            _catalog.DeleteAsync(_viewModel.SelectedContact.Phone);
             // Set selection to null
             _viewModel.SelectedContact = null;
         }

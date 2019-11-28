@@ -2,16 +2,13 @@
     x:Class="ContactApp.View.ContactList"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Custom="using:Microsoft.Xaml.Interactivity"
+    xmlns:Custom1="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:ContactApp.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="using:ContactApp.ViewModel"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
-
-    <Page.DataContext>
-        <viewModel:ContactViewModel />
-    </Page.DataContext>
 
     <Page.Resources>
         <Style x:Key="TextBlockStyle" TargetType="TextBlock">
@@ -24,6 +21,14 @@
             <Setter Property="Margin" Value="10,10,10,10" />
         </Style>
     </Page.Resources>
+
+    <Page.Background>
+        <ThemeResource ResourceKey="ApplicationPageBackgroundThemeBrush" />
+    </Page.Background>
+
+    <Page.DataContext>
+        <viewModel:ContactViewModel />
+    </Page.DataContext>
 
     <Grid>
 

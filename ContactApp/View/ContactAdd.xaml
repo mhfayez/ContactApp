@@ -28,6 +28,11 @@
 
     <Grid>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
         <StackPanel Orientation="Horizontal">
             <!--  List Part  -->
             <StackPanel>
@@ -53,27 +58,43 @@
             <!--  Details Part  -->
             <StackPanel>
 
-                <StackPanel
-                    Width="300"
-                    Margin="10,10,10,10"
-                    BorderBrush="DarkGray"
-                    BorderThickness="3,3,3,3">
+                <StackPanel Width="300" Margin="10,10,10,10">
                     <TextBox
-                        Header="Enter your name:"
+                        Header="Contact name"
                         PlaceholderText="Name"
                         Text="{Binding Name, Mode=TwoWay}" />
                     <TextBox
-                        Header="Enter your phone:"
+                        Header="Contact phone"
                         PlaceholderText="Phone"
                         Text="{Binding Phone, Mode=TwoWay}" />
                     <TextBox
-                        Header="Enter your country:"
+                        Header="Contact country"
                         PlaceholderText="Country"
                         Text="{Binding Country, Mode=TwoWay}" />
-                    <TextBox
-                        Header="Enter your image:"
-                        PlaceholderText="Image"
-                        Text="{Binding ImageSource, Mode=TwoWay}" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox
+                            Name="FileNameTextBox"
+                            Width="210"
+                            Height="60"
+                            VerticalAlignment="Top"
+                            BorderBrush="DarkGray"
+                            BorderThickness="2,2,0,2"
+                            Header="Contact image"
+                            IsReadOnly="True"
+                            PlaceholderText="Image"
+                            Text="{Binding ImageSource, Mode=TwoWay}" />
+                        <Button
+                            Name="btnImageLoader"
+                            Grid.Column="1"
+                            Height="37"
+                            Margin="0,23"
+                            VerticalAlignment="Top"
+                            BorderBrush="DarkGray"
+                            BorderThickness="0,2,2,2"
+                            Click="btnImageLoader_Click"
+                            Content="Load Image" />
+                    </StackPanel>
+
                 </StackPanel>
 
                 <Button
@@ -84,6 +105,12 @@
             </StackPanel>
 
         </StackPanel>
+
+        <Image
+            Name="ImageViewer"
+            Grid.Column="1"
+            Width="400"
+            Height="400" />
 
     </Grid>
 </Page>

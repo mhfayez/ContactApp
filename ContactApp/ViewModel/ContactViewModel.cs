@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.Storage;
 using ContactApp.Annotations;
 using ContactApp.Model;
 using UWP_MVVM_Weather.Common;
@@ -40,7 +41,8 @@ namespace ContactApp.ViewModel
         public string ImageSource
         {
             get => _imageSource;
-            set => _imageSource = "..\\Assets\\" + value;
+          //  set => _imageSource = "..\\Assets\\" + value;
+            set => _imageSource = ApplicationData.Current.LocalFolder.Path + "\\" + value; 
         }
 
         
@@ -70,7 +72,7 @@ namespace ContactApp.ViewModel
        
         public void AddContact()
         {
-            _contactCatalog.AddContact(new Contact(Name, Phone, Country, ImageSource));
+            _contactCatalog.AddContactAsync(new Contact(Name, Phone, Country, ImageSource));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

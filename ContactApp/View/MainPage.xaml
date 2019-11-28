@@ -35,11 +35,23 @@
                         <Button
                             Name="ContactList"
                             Click="ClickHandler"
-                            Style="{StaticResource ButtonStyle}">
+                            Style="{StaticResource ButtonStyle}"
+                            Tag="View.ContactList">
                             <SymbolIcon Symbol="People" />
                         </Button>
                         <TextBlock VerticalAlignment="Center" Text="Contact list" />
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button
+                            Name="ContactAdd"
+                            Click="ClickHandler"
+                            Style="{StaticResource ButtonStyle}"
+                            Tag="View.ContactAdd">
+                            <SymbolIcon Symbol="AddFriend" />
+                        </Button>
+                        <TextBlock VerticalAlignment="Center" Text="Add Contact" />
+                    </StackPanel>
+                    <!--
                     <StackPanel Orientation="Horizontal">
                         <Button
                             Name="ContactDetails"
@@ -49,16 +61,6 @@
                         </Button>
                         <TextBlock VerticalAlignment="Center" Text="Contact info" />
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Button
-                            Name="ContactAdd"
-                            Click="ClickHandler"
-                            Style="{StaticResource ButtonStyle}">
-                            <SymbolIcon Symbol="AddFriend" />
-                        </Button>
-                        <TextBlock VerticalAlignment="Center" Text="Add Contact" />
-                    </StackPanel>
-                    <!--
                     <StackPanel Orientation="Horizontal">
                         <Button
                             Name="ContactEdit"
@@ -84,7 +86,8 @@
                         <Button
                             Name="ContactSearch"
                             Background="Transparent"
-                            Click="ClickHandler">
+                            Click="ClickHandler"
+                            Tag="TestPage">
                             <StackPanel Orientation="Horizontal">
                                 <SymbolIcon Symbol="Find" />
                                 <TextBlock Margin="19,0" VerticalAlignment="Center"><Run Text="Search" /></TextBlock>
